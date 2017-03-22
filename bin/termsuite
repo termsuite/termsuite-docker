@@ -1,0 +1,10 @@
+#!/bin/bash
+DOCKERFILE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../Dockerfile"
+TERMSUITE_VERSION=`grep  -Po "TERMSUITE_VERSION=\S+" $DOCKERFILE | cut -d= -f2`
+
+docker run --rm --name termsuite -it \
+            -v "${HOME}:${HOME}" \
+            -v "${PWD}:${PWD}" \
+            -w "${PWD}" \
+            -e LOCAL_USER_ID=`id -u $USER` \
+            termsuite:$TERMSUITE_VERSION $@

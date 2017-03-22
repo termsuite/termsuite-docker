@@ -1,0 +1,52 @@
+#!/bin/bash
+
+JAR=$(ls /opt/termsuite-core-*.jar)
+OPTS=""
+
+# Get the program name as first argument from command line option and remove it
+PROG=$1
+shift
+
+# Add local user
+# Either use the LOCAL_USER_ID if passed in at runtime or fallback
+USER_ID=${LOCAL_USER_ID??" env LOCAL_USER_ID must be set"}
+echo "Starting with UID : $USER_ID"
+# Bind actual user_id to new inner user account named "user"
+useradd --shell /bin/bash -u $USER_ID -o -c "" -m user
+export HOME=/home/user
+
+# Tests if an element is contained in an array
+elementIn () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+# Update options
+case ${PROG} in
+        preprocess)
+            MAIN=PreprocessorCLI
+            OPTS="-t /opt/treetagger"
+            ;;
+
+        extract)
+            MAIN=TerminologyExtractorCLI
+            if elementIn "-c" "$@"
+            then
+              echo Found arg -c. Adding option -t /opt/treetagger
+              OPTS="-t /opt/treetagger"
+            fi
+            ;;
+        align)
+            MAIN=AlignerCLI
+            ;;
+        *)
+            echo $"Usage: $0 {preprocess|extract|align} OPTIONS"
+            exit 1
+esac
+
+cmd="java -cp $JAR fr.univnantes.termsuite.tools.${MAIN} ${OPTS} $@"
+echo "Executing: $cmd"
+
+# Run as user "user"
+exec /usr/local/bin/gosu user java -cp $JAR fr.univnantes.termsuite.tools.${MAIN} ${OPTS} $@
