@@ -4,7 +4,7 @@ LABEL maintainer="Damien Cram <damien.cram@univ-nantes.fr>"
 
 ENV \
   TT_VERSION=3.2.1 \
-  TERMSUITE_VERSION=3.0 \
+  TERMSUITE_VERSION=3.0.1 \
   TT_URL=http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data
 
 # Install gosu to allow to run termsuite as current user

@@ -22,7 +22,7 @@ This will build the docker image `termsuite:X.Y.Y` where `X.Y.Z` is the version 
 ```
 ENV \
   TT_VERSION=3.2.1 \
-  TERMSUITE_VERSION=3.0 \
+  TERMSUITE_VERSION=3.0.1 \
 ```
 
 # Running TermSuite
@@ -53,7 +53,7 @@ Where `OPTIONS` are the options you need to run the given TermSuite tool,
 See TermSuite [Command Line API documentation](https://termsuite.github.io/documentation/command-line-api/) to get details on how to run each of these programs.
 
 
-You can also get each tool instruction with option `--help`:
+You can also get each tool's instructions with option `--help`:
 
 ```
 $ bin/termsuite preprocess --help

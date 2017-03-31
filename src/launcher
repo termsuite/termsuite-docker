@@ -37,6 +37,7 @@ case ${PROG} in
               OPTS="-t /opt/treetagger"
             fi
             ;;
+            
         align)
             MAIN=AlignerCLI
             ;;
