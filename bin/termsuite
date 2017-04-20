@@ -1,5 +1,6 @@
 #!/bin/bash
-DOCKERFILE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../Dockerfile"
+TERMSUITE_HOME=`readlink -f "${BASH_SOURCE[0]}" | xargs dirname | xargs dirname`
+DOCKERFILE=$TERMSUITE_HOME/Dockerfile
 TERMSUITE_VERSION=`grep  -Po "TERMSUITE_VERSION=\S+" $DOCKERFILE | cut -d= -f2`
 
 docker run --rm --name termsuite -it \
