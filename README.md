@@ -22,7 +22,7 @@ This will build the docker image `termsuite:X.Y.Y` where `X.Y.Z` is the version 
 ```
 ENV \
   TT_VERSION=3.2.1 \
-  TERMSUITE_VERSION=3.0.1 \
+  TERMSUITE_VERSION=3.0.3 \
 ```
 
 # Running TermSuite
