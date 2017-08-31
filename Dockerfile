@@ -4,7 +4,7 @@ LABEL maintainer="Damien Cram <damien.cram@univ-nantes.fr>"
 
 ENV \
   TT_VERSION=3.2.1 \
-  TERMSUITE_VERSION=3.0.3 \
+  TERMSUITE_VERSION=3.0.10 \
   TT_URL=http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data
 
 # Install gosu to allow to run termsuite as current user
@@ -27,16 +27,14 @@ RUN wget ${TT_URL}/tree-tagger-linux-${TT_VERSION}.tar.gz \
     && wget ${TT_URL}/russian-par-linux-3.2-utf8.bin.gz \
     && wget ${TT_URL}/italian-par-linux-3.2-utf8.bin.gz \
     && wget ${TT_URL}/spanish-par-linux-3.2-utf8.bin.gz \
-    && wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz \
+#    && wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz \
     && wget ${TT_URL}/install-tagger.sh \
     && sh /opt/treetagger/install-tagger.sh \
-    && tar xzf tt-lcmc.tgz \
     && mv lib models \
     && rm -rf *.gz *.tgz cmd/ doc/
 
 WORKDIR /opt/treetagger/models/
 RUN mv french-utf8.par french.par \
-    && mv zh.par chinese.par \
     && mv english-utf8.par english.par \
     && mv spanish-utf8.par spanish.par \
     && mv italian-utf8.par italian.par \
